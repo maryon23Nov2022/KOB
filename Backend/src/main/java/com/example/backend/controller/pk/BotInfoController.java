@@ -13,11 +13,11 @@ import java.util.Map;
 @RequestMapping("/pk/")
 public class BotInfoController{
     @RequestMapping("getbotinfo/")
-//http://127.0.0.1:8080/pk/getbotinfo/
+//http://127.0.0.1:8090/pk/getbotinfo/
     public Map<String, String> getbotinfo(){
         Map<String, String> bot = new HashMap<>();
-        bot.put("name", "mary");
-        bot.put("rating", "inf");
+        bot.put("name", "tiger");
+        bot.put("rating", "1680");
         return bot;
     }
 }

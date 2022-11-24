@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/pk")
 public class IndexController {
     @RequestMapping("index/")
-//http://127.0.0.1:8080/pk/index/
+//http://127.0.0.1:8090/pk/index/
     public String inded(){
         return "pk/index.html";
     }
