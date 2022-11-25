@@ -2,7 +2,7 @@ const grr = [];
 
 export class gameobject{
     constructor(){
-        gameobject.push(this);
+        grr.push(this);
         this.gap = 0;
         this.has_called = false;
     }
@@ -24,7 +24,7 @@ export class gameobject{
 
         for(let i in grr){
             const obj = grr[i];
-            if(obj == this){
+            if(obj === this){
                 grr.splice(i);
                 break;
             }
