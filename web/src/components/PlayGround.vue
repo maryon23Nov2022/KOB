@@ -19,7 +19,7 @@
     div.playground{
         width: 60vw;
         height: 70vh;
-        background: lightblue;
+        /* background: lightblue; */
         margin: 40px auto;
     }
 </style>

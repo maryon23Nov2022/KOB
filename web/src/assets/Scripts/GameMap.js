@@ -1,4 +1,5 @@
 import { gameobject } from "./GameObjects";
+import { snake } from "./Snake";
 import { wall } from "./Wall";
 
 export class gamemap extends gameobject{
@@ -9,14 +10,18 @@ export class gamemap extends gameobject{
         this.parent = parent;
         this.l = 0;
         this.rows = 13;
-        this.cols = 13;
+        this.cols = 14;
 
         this.walls = [];
         this.walls_cnt = 10;
+
+        this.snakes = [
+            new snake({id: 0, color: "#D07FC4", r: this.rows - 2, c: 1}, this),
+            new snake({id: 1, color: "#8FC5D7", r: 1, c: this.cols - 2}, this),
+        ];
     }
 
     creat_walls(){
-        // new wall(0, 0, this);
         const g = [];
         for(let r = 0; r < this.rows; ++ r){
             g[r] = [];
@@ -36,9 +41,9 @@ export class gamemap extends gameobject{
             for(let j = 0; j < 1000; ++ j){
                 let r = parseInt(Math.random() * this.rows);
                 let c = parseInt(Math.random() * this.cols);
-                if(g[r][c] || g[c][r]) continue;
+                if(g[r][c] || g[this.rows - 1 - r][this.cols - 1 - c]) continue;
                 if(r == this.rows - 2 && c == 1 || c == this.cols - 2 && r == 1) continue;
-                g[r][c] = g[c][r] = true;
+                g[r][c] = g[this.rows - 1 - r][this.cols - 1 - c] = true;
                 break;
             }
         }
@@ -52,6 +57,7 @@ export class gamemap extends gameobject{
 
     start(){
         this.creat_walls();
+        this.add_listening_events();
     }
 
     update_size(){
@@ -61,13 +67,36 @@ export class gamemap extends gameobject{
         this.ctx.canvas.height = this.l * this.rows;
     }
 
+    next_step(){    //two snakes be ready for the next round
+        for(const snake of this.snakes){
+            snake.next_step();
+        }
+    }
+
+    referee(cell){
+        for(const wall of this.walls){
+            if(wall.r === cell.r && wall.c === cell.c) return false;
+        }
+        for(const snake of this.snakes){
+            let k = snake.cells.length;
+            if(!snake.check_tail_increasing()) -- k;
+            for(let i = 0; i < k; ++ i){
+                if(snake.cells[i].r === cell.r && snake.cells[i].c === cell.c) return false;
+            }
+        }
+        return true;
+    }
+
     update(){
         this.update_size();
+        if(this.check_ready()){
+            this.next_step();
+        }
         this.render();
     }
 
     render(){
-        const color_even = "#AAD751", color_odd = "#A2D149";
+        const color_even = "#818181", color_odd = "#919191";
         for(let i = 0; i < this.rows; ++ i){
             for(let j = 0; j < this.cols; ++ j){
                 if(i + j & 1) this.ctx.fillStyle = color_odd;
@@ -75,5 +104,29 @@ export class gamemap extends gameobject{
                 this.ctx.fillRect(j * this.l, i * this.l, this.l, this.l);
             }
         }
+    }
+
+    check_ready(){
+        for(const snake of this.snakes){
+            if(snake.status !== "idle") return false;
+            if(snake.direct === -1) return false;
+        }
+        return true;
+    }
+
+    add_listening_events(){
+        this.ctx.canvas.focus();
+
+        const [snake0, snake1] = this.snakes;
+        this.ctx.canvas.addEventListener("keydown", e => {
+            if(e.key === 'w') snake0.set_direct(0);
+            else if(e.key === 'd') snake0.set_direct(1);
+            else if(e.key === 's') snake0.set_direct(2);
+            else if(e.key === 'a') snake0.set_direct(3);
+            else if(e.key === 'ArrowUp') snake1.set_direct(0);
+            else if(e.key === 'ArrowRight') snake1.set_direct(1);
+            else if(e.key === 'ArrowDown') snake1.set_direct(2);
+            else if(e.key === 'ArrowLeft') snake1.set_direct(3);
+        })
     }
 }
