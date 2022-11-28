@@ -6,11 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/pk")
 public class IndexController {
-    @RequestMapping("index/")
-//http://127.0.0.1:8090/pk/index/
-    public String inded(){
-        return "pk/index.html";
+    @RequestMapping("/")        //http://127.0.0.1:8090/
+    public String index(){
+        return "pk/index.html";     //src/main/resources/templates/pk/index.html
     }
 }
