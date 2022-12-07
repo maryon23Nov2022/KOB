@@ -9,8 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Bot {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private String name, password, photo;
+    private Integer userId;
+    private String title;
+    private String description;
+    private Integer rating;
+    private String content;
 }

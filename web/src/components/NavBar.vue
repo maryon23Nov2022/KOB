@@ -16,16 +16,30 @@
                 </li>
             </ul>
 
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" v-if="$store.state.user.is_login">
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    image
+                    {{$store.state.user.username}}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/user/bot/">Bot</a></li>
+                    <!-- <li><a class="dropdown-item" href="/user/account/login/">Login</a></li> -->
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Exit</a></li>
+                    <li><a class="dropdown-item" href="#" @click="logout">Exit</a></li>
                 </ul>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav" v-else>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/account/login/" role="button">
+                        Login
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/account/register/" role="button">
+                        Register
+                    </a>
                 </li>
             </ul>
 
@@ -36,6 +50,22 @@
 
 
 <script>
+
+import { useStore } from 'vuex';
+
+export default{
+
+    setup(){
+        const store = useStore();
+        const logout = () => {
+            store.dispatch("logout");
+        }
+        return{
+            logout
+        }
+    }
+}
+
 </script>
 
 

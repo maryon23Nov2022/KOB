@@ -1,5 +1,7 @@
 <template>
-    <div>Ranklist</div>
+    <div style = "font-size: 120%; color: whitesmoke;">
+        Ranklist
+    </div>
 </template>
 
 
