@@ -3,11 +3,12 @@ import { snake } from "./Snake";
 import { wall } from "./Wall";
 
 export class gamemap extends gameobject{
-    constructor(ctx, parent){
+    constructor(ctx, parent, store){
         super();
 
         this.ctx = ctx;
         this.parent = parent;
+        this.store = store;
         this.l = 0;
         this.rows = 13;
         this.cols = 14;
@@ -22,31 +23,7 @@ export class gamemap extends gameobject{
     }
 
     creat_walls(){
-        const g = [];
-        for(let r = 0; r < this.rows; ++ r){
-            g[r] = [];
-            for(let c = 0; c < this.cols; ++ c){
-                g[r][c] = false;
-            }
-        }
-
-        for(let r = 0; r < this.rows; ++ r){
-            g[r][0] = g[r][this.cols - 1] = true;
-        }
-        for(let c = 1; c < this.cols; ++ c){
-            g[0][c] = g[this.rows - 1][c] = true;
-        }
-
-        for(let i = 0; i < this.walls_cnt; ++ i){
-            for(let j = 0; j < 1000; ++ j){
-                let r = parseInt(Math.random() * this.rows);
-                let c = parseInt(Math.random() * this.cols);
-                if(g[r][c] || g[this.rows - 1 - r][this.cols - 1 - c]) continue;
-                if(r == this.rows - 2 && c == 1 || c == this.cols - 2 && r == 1) continue;
-                g[r][c] = g[this.rows - 1 - r][this.cols - 1 - c] = true;
-                break;
-            }
-        }
+        const g = this.store.state.home.gamemap;
 
         for(let r = 0; r < this.rows; ++ r){
             for(let c = 0; c < this.cols; ++ c){

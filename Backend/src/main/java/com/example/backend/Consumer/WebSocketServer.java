@@ -1,6 +1,7 @@
 package com.example.backend.Consumer;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.backend.Consumer.Utilities.Game;
 import com.example.backend.Consumer.Utilities.JwtAuthentication;
 import com.example.backend.Mapper.UserMapper;
 import com.example.backend.pojo.User;
@@ -23,6 +24,7 @@ public class WebSocketServer {
     final private static CopyOnWriteArraySet<User> matchpool = new CopyOnWriteArraySet<>();
     private User user;
     private Session session = null;
+//    private Game game = null;
 
     private static UserMapper userMapper;
 
@@ -66,16 +68,21 @@ public class WebSocketServer {
             matchpool.remove(a);
             matchpool.remove(b);
 
+            Game game = new Game(13, 14, 10);
+            game.createMap();
+
             JSONObject respA = new JSONObject();
             respA.put("event", "start-matching");
             respA.put("opponent_username", b.getName());
             respA.put("opponent_photo", b.getPhoto());
+            respA.put("gamemap", game.getG());
             users.get(a.getId()).sendMessage(respA.toJSONString());
 
             JSONObject respB = new JSONObject();
             respB.put("event", "start-matching");
             respB.put("opponent_username", a.getName());
             respB.put("opponent_photo", a.getPhoto());
+            respB.put("gamemap", game.getG());
             users.get(b.getId()).sendMessage(respB.toJSONString());
         }
     }
