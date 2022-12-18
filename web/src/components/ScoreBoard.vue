@@ -16,7 +16,10 @@
             let canvas = ref(null);
 
             onMounted(() => {
-                new gamemap(canvas.value.getContext('2d'), parent.value, store)
+                store.commit(
+                    "updateGameObject",
+                    new gamemap(canvas.value.getContext('2d'), parent.value, store)
+                );
             });
 
             return{

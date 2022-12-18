@@ -62,10 +62,6 @@ export class snake extends gameobject{
         for(let i = k; i > 0; -- i){
             this.cells[i] = JSON.parse(JSON.stringify(this.cells[i - 1]));
         }
-
-        if(!this.gamemap.referee(this.next_cell)){
-            this.status = "died";
-        }
     }
 
     update_move(){
