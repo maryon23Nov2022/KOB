@@ -11,9 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Player {
-    private int id;
-    private int sx;
-    private int sy;
+    private Integer id;
+    private Integer botId;
+    private String botCode;
+    private Integer sx;
+    private Integer sy;
     private List<Integer> steps;
 
     private boolean check_tail_increasing(int step){
