@@ -92,7 +92,7 @@ export default{
         width: 60vw;
         height: 70vh;
         margin: 40px auto;
-        background-color: gray;
+        /* background-color: gray; */
     }
     div.user-photo{
         text-align: center;

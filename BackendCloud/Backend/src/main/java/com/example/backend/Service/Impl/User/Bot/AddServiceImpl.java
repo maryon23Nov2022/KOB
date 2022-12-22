@@ -1,5 +1,6 @@
 package com.example.backend.Service.Impl.User.Bot;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.backend.Mapper.BotMapper;
 import com.example.backend.Service.Impl.Utilities.UserDetailsImpl;
 import com.example.backend.Service.User.Bot.AddService;
@@ -53,6 +54,14 @@ public class AddServiceImpl implements AddService {
             Result.put("error_message", "Too long for code.");
             return Result;
         }
+
+        QueryWrapper<Bot> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", CurrentUser.getId());
+        if(CurrentBotMapper.selectCount(queryWrapper) >= 10){
+            Result.put("error_message", "failed");
+            return Result;
+        }
+
         Bot CurrentBot = new Bot(null, CurrentUser.getId(), title, description, content);
 
         CurrentBotMapper.insert(CurrentBot);

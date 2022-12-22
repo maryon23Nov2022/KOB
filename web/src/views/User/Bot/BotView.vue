@@ -121,9 +121,9 @@
 
 
 <script>
-import { useStore } from 'vuex'
+import { useStore } from 'vuex';
 import { ref, reactive } from 'vue';
-import $ from 'jquery'
+import $ from 'jquery';
 import { Modal } from 'bootstrap/dist/js/bootstrap';
 
 export default{
