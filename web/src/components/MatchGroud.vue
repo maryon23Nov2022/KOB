@@ -65,7 +65,7 @@ export default{
 
         const refresh_bot = ()=>{
             $.ajax({
-                url: 'http://127.0.0.1:8090/user/bot/query/',
+                url: 'http://8.130.33.113/api/user/bot/query/',
                 type: 'get',
                 headers:{
                     Authorization: 'Bearer ' + store.state.user.token,

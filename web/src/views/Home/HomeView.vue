@@ -2,6 +2,10 @@
     <PlayGround v-if = "$store.state.home.status === 'playing'"></PlayGround>
     <MatchGround v-if = "$store.state.home.status === 'matching'"></MatchGround>
     <ResultBoard v-if = "$store.state.home.loser !== 'none'"></ResultBoard>
+    <div v-if = "$store.state.home.status === 'playing'">
+    <div class = "user-color" v-if = "$store.state.user.id == $store.state.home.a_id">LEFT</div>
+    <div class = "user-color" v-if = "$store.state.user.id == $store.state.home.b_id">RIGHT</div>
+    </div>
 </template>
 
 <script>
@@ -19,7 +23,7 @@ export default{
     },
     setup(){
         const store = useStore();
-        const socketUrl = `ws://127.0.0.1:8090/websocket/${store.state.user.token}/`;
+        const socketUrl = `ws://8.130.33.113/websocket/${store.state.user.token}/`;
 
         store.commit("updateIsRecord", false);
 
@@ -85,4 +89,10 @@ export default{
 </script>
 
 <style scoped>
+div.user-color{
+    color: whitesmoke;
+    text-align: center;
+    font-style: italic;
+    font-size: 4vh;
+}
 </style>

@@ -13,7 +13,7 @@ public class RemoveController {
     @Autowired
     private RemoveService CurrentRemoveService;
 
-    @PostMapping("/user/bot/remove/")
+    @PostMapping("/api/user/bot/remove/")
     public Map<String, String> Remove(@RequestParam Map<String, String> data){
         return CurrentRemoveService.Remove(data);
     }

@@ -40,7 +40,7 @@ export default{
 
         const register = () =>{
             $.ajax({
-                url: 'http://127.0.0.1:8090/user/account/register/',
+                url: 'http://8.130.33.113/api/user/account/register/',
                 type: 'post',
                 data:{
                     username: username.value,

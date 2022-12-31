@@ -13,7 +13,7 @@ public class QueryController {
     @Autowired
     private QueryService queryService;
 
-    @GetMapping("/user/bot/query/")
+    @GetMapping("/api/user/bot/query/")
     public List<Bot> Query(){
         return queryService.GetList();
     }

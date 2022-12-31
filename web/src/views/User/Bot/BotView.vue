@@ -140,7 +140,7 @@ export default{
 
         const refresh_bot = ()=>{
             $.ajax({
-                url: 'http://127.0.0.1:8090/user/bot/query/',
+                url: 'http://8.130.33.113/api/user/bot/query/',
                 type: 'get',
                 headers:{
                     Authorization: 'Bearer ' + store.state.user.token,
@@ -155,7 +155,7 @@ export default{
         const add_bot = () =>{
             botadd.error_message = '';
             $.ajax({
-                url:'http://127.0.0.1:8090/user/bot/add/',
+                url:'http://8.130.33.113/api/user/bot/add/',
                 type:'post',
                 data:{
                     title: botadd.title,
@@ -182,7 +182,7 @@ export default{
         const update_bot = (bot) =>{
             bot.error_message = '';
             $.ajax({
-                url:'http://127.0.0.1:8090/user/bot/update/',
+                url:'http://8.130.33.113/api/user/bot/update/',
                 type:'post',
                 data:{
                     id: bot.id,
@@ -206,7 +206,7 @@ export default{
 
         const remove_bot = (bot) =>{
             $.ajax({
-                url:'http://127.0.0.1:8090/user/bot/remove/',
+                url:'http://8.130.33.113/api/user/bot/remove/',
                 type:'post',
                 data:{
                     id: bot.id,
